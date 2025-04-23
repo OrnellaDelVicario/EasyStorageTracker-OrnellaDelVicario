@@ -1,9 +1,12 @@
 package main;
 
 import model.*;
+import storage.StorageManager;
 import storage.StorageUnit;
 import storage.StorageUtils;
+import storage.JsonFormatter;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,6 +53,25 @@ public class TrackerDemo {
         items.add(snack);
         items.add(milk);  // Add milk
         StorageUtils.printItems(items);
-    }
 
+        List<Object> inventory = new ArrayList<>();
+        inventory.add(bookStorage.getItem());
+        inventory.add(deviceStorage.getItem());
+        inventory.add(snackStorage.getItem());
+
+        StorageUtils.printItems(inventory);
+
+        StorageManager<Book> bookManager = new StorageManager<>();
+        bookManager.addItem(new Book("Clean Code", "Robert C. Martin"));
+        bookManager.addItem(new Book("Effective Java", "Joshua Bloch"));
+        System.out.println("Books in storage:");
+        bookManager.printAllItems();
+
+
+        StorageUnit<Book> bookStorage = new StorageUnit<>();
+        bookStorage.addItem(new Book("Java Fundamentals", "Alice"));
+        System.out.println("JSON Output: " + JsonFormatter.toJson(bookStorage.getItem()));
+
+
+    }
 }
