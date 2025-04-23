@@ -1,17 +1,46 @@
 package main;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import model.*;
+import storage.StorageUnit;
+import storage.StorageUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class TrackerDemo {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        // Create Different type of Objects
+        Book book = new Book("Java Programming", "John Doe");
+        Device device = new Device("Smartphone", "Samsung");
+        Snack snack = new Snack("Chips", "BBQ");
+        Perishable milk = new Perishable("Milk", false);
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+        // Create Storage Units for each type
+        StorageUnit<Book> bookStorage = new StorageUnit<>();
+        StorageUnit<Device> deviceStorage = new StorageUnit<>();
+        StorageUnit<Snack> snackStorage = new StorageUnit<>();
+        StorageUnit<Perishable> perishableStorage = new StorageUnit<>();
+
+        // Storage items
+        bookStorage.addItem(book);
+        deviceStorage.addItem(device);
+        snackStorage.addItem(snack);
+        perishableStorage.addItem(milk);
+
+        // Show items
+        StorageUtils.displayItem(bookStorage.getItem());
+        StorageUtils.displayItem(deviceStorage.getItem());
+        StorageUtils.displayItem(snackStorage.getItem());
+        StorageUtils.displayItem(perishableStorage.getItem());
+
+        // Check Perishable Items
+        StorageUtils.checkPerishable(milk);
+
+        // Wildcard Method
+        List<Object> items = new ArrayList<>();
+        items.add(book);
+        items.add(device);
+        items.add(snack);
+        StorageUtils.printItems(items);
     }
 }
